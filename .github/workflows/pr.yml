@@ -2,6 +2,7 @@ name: Validate pull request before putting into queue
 
 on:
   pull_request:
+  merge_group:
 
 jobs:
   validate-pr:
@@ -18,3 +19,19 @@ jobs:
       run: sleep 5
     - name: pr test
       run: ./pr_test.bash
+  validate-merge-group:
+    if: ${{ github.event_name == 'merge_group' }}
+    needs: validate-pr
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Display info
+      run: | 
+        pwd
+        tree -a -I '.git'
+        git status
+    - name: Run slow CI (emulated by a long sleep)
+      run: sleep 300
+    - name: pr test
+      run: ./merge_group_test.bash

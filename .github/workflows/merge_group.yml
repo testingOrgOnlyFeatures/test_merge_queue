@@ -2,9 +2,11 @@ name: Validate code in the merge queue
 
 on:
   merge_group:
+  pull_request:
 
 jobs:
-  validate-pr:
+  validate-merge-group:
+    if: ${{ github.event_name == 'merge_group' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
