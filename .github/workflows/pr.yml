@@ -1,4 +1,4 @@
-name: Validate pull request before putting into queue
+name: Validate
 
 on:
   pull_request:
@@ -32,6 +32,6 @@ jobs:
         tree -a -I '.git'
         git status
     - name: Run slow CI (emulated by a long sleep)
-      run: sleep 300
+      run: sleep 30
     - name: pr test
       run: ./merge_group_test.bash
