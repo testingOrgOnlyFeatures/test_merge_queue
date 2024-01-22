@@ -16,3 +16,5 @@ jobs:
         git status
     - name: Run fast CI (emulated by a short sleep)
       run: sleep 5
+    - name: pr test
+      run: ./pr_test.bash
